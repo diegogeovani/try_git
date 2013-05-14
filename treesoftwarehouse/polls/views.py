@@ -1,6 +1,12 @@
 from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
+from polls.models import Poll, Choice
 
-from polls.models import Poll
+'''
+
+These are not here anymore. There're at urls.py. Two diferent solutions for the same problem.
 
 def index(request):
 	latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
@@ -8,11 +14,23 @@ def index(request):
 
 def detail(request, poll_id):
 	p = get_object_or_404(Poll, pk = poll_id)
-	return render_to_response('polls/detail.html', {'poll' : p})
+	return render_to_response('polls/detail.html', {'poll' : p}, context_instance = RequestContext(request))
 
 def results(request, poll_id):
-	return HttpResponse("You are looking at the results of %s." % poll_id)
-
-def vote(request, poll_id):
-	return HttpResponse("You are voting on poll %s." % poll_id)
+	p = get_object_or_404(Poll, id = poll_id)
+	return render_to_response('polls/results.html', {'poll' : p})	
+'''
+def vote(request, poll_id):	
+	p = get_object_or_404(Poll, id = poll_id)
+	try:
+		selected_choice = p.choice_set.get(id = request.POST['choice'])
+	except(KeyError, Choice.DoesNotExist):
+		return render_to_response('polls/detail.html', {
+			'polls' : p,
+			'error_message' : "You didn't selected a choice",
+		}, context_instance = RequestContext(request))
+	else:
+		selected_choice.votes +=  1
+		selected_choice.save()
+		return HttpResponseRedirect(reverse('poll_results', args = (p.id,)))
 
