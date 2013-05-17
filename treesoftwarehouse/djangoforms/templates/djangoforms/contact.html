@@ -1,0 +1,18 @@
+<form action="/djangoforms/" method="post" >
+{% csrf_token %}
+<!-- {{ form.non_field_errors }} -->
+{% if form.subject.errors %}
+	<ol>
+	{% for error in form.subject.errors %}	
+		<li><strong>{{ error | escape }}</strong></li>
+	{% endfor %}
+	</ol>
+{% endif %}
+{% for field in form %}
+	<div class="fieldWrapper">
+		{{ field.errors }}
+		{{ field.label_tag }} : {{ field }}
+	</div>
+{% endfor %}
+	<p><input type="submit" value="Go!"/></p>
+</form>

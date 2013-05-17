@@ -1,0 +1,30 @@
+from django import forms
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+
+
+class ContactForm(forms.Form):
+	subject = forms.CharField(max_length = 80)
+	message = forms.CharField(max_length = 300)
+	sender = forms.EmailField()
+	cc_myself = forms.BooleanField(required = False)
+
+	def contact(request):
+		if request.method == 'POST':
+			form.ContactForm(request.POST)
+
+			if form.is_valid():
+				subject = form.clened_data['subject']
+				message  = form.clened_data['message']
+				sender = form.clened_data['sender']
+ 				cc_myself = form.clened_data['cc_myself']
+				recipients = ['diego@agenciatree.com']
+				
+				if cc_myself:
+					recipients.append(sender)
+
+				
+				return HttpResponseRedirect('/thanks/')
+		else:
+			form.ContactForm()
+		return render(request, 'contact.html', {'form' : form,})
