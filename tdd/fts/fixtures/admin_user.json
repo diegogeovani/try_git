@@ -1,0 +1,20 @@
+[
+{
+  "pk": 1, 
+  "model": "auth.user", 
+  "fields": {
+    "username": "diego", 
+    "first_name": "", 
+    "last_name": "", 
+    "is_active": true, 
+    "is_superuser": true, 
+    "is_staff": true, 
+    "last_login": "2013-05-20T20:01:15Z", 
+    "groups": [], 
+    "user_permissions": [], 
+    "password": "pbkdf2_sha256$10000$zIf9wxGUfvBn$2JQozW9iBFnfMuRgfx5K2xb9cxXqgFEZCRUMbRH3Czw=", 
+    "email": "diego@agenciatree.com", 
+    "date_joined": "2013-05-10T19:38:49Z"
+  }
+}
+]

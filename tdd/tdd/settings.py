@@ -1,4 +1,4 @@
-# Django settings for treesoftwarehouse project.
+# Django settings for tdd project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'tree_softwarehouse',         # Or path to database file if using sqlite3.
+        'NAME': 'tree_softwarehouse',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
         'PASSWORD': '',
@@ -83,7 +83,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '1j-1#$8s*ow8iz8q37873-wuvh4@=pouuuuyfhm@awnvht%0w!'
+SECRET_KEY = 'u+1uavrxv$200#@cshchxg#ako2yj233@iv-)j2)gbf5o(mx*-'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -102,13 +102,12 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'treesoftwarehouse.urls'
+ROOT_URLCONF = 'tdd.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'treesoftwarehouse.wsgi.application'
+WSGI_APPLICATION = 'tdd.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '/home/diego/django/treesoftwarehouse/templates',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -121,13 +120,9 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'fts',
     'polls',
-    "django.contrib.admin",
-    'south',
-    'southtut',
-    'southtut2',
-    'djangoforms',
-    'modelform',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -162,10 +157,3 @@ LOGGING = {
         },
     }
 }
-
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "diego@agenciatree.com"
-EMAIL_HOST_PASSWORD = "05PrkmlisY"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-#EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
