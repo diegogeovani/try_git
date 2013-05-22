@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.utils import timezone
 from polls.models import Poll, Choice
 
+
 class PollModelTest(TestCase):
 
 	def test_creating_a_new_poll_and_saving_it_to_the_database(self):		
@@ -49,3 +50,28 @@ class PollModelTest(TestCase):
 		for field in Poll._meta.fields:
 			if field.name == 'pub_date':
 				self.assertEquals(field.verbose_name, 'Date published')
+				
+	
+class HomePageViewTest(TestCase):
+	
+	def test_root_url_shows_all_polls(self):
+		# There are two polls
+		poll1 = Poll(question = "Whats your favorite social network?", pub_date = timezone.now())
+		poll2 = Poll(question = "How is it going?", pub_date = timezone.now())		
+		
+		poll1.save()
+		poll2.save()		
+		
+		response = self.client.get('/')
+
+		# Am I using the right template?
+		self.assertTemplateUsed(response, 'home.html')				
+		
+		# Were the polls sent to the template?
+		polls_in_context = response.context['polls']
+		self.assertEquals(list(polls_in_context), [poll1, poll2])
+		
+		# Are the polls there?
+		self.assertIn(poll1.question, response.content)
+		self.assertIn(poll2.question, response.content)		
+		
